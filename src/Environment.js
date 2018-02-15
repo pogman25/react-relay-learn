@@ -12,23 +12,24 @@ const {
 const store = new Store(new RecordSource())
 
 // 3
-const network = Network.create((operation, variables) => {
-    // 4
+export const fetchQuery = (operation, variables) => {
     return fetch('https://api.graph.cool/relay/v1/cjdl8zp1w1lpo01506g1jxfa3', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
-        },
-        body: JSON.stringify({
-            query: operation.text,
-            variables,
-        }),
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem(GC_AUTH_TOKEN)}`
+      },
+      body: JSON.stringify({
+        query: operation.text,
+        variables,
+      }),
     }).then(response => {
-        return response.json()
+      return response.json()
     })
-})
+  }
+
+const network = Network.create(fetchQuery)
 
 // 5
 const environment = new Environment({
