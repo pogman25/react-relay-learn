@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import {createFragmentContainer, graphql} from 'react-relay';
 import Link from './Link';
+import NewVoteSubscription from '../subscriptions/NewVoteSubscription'
 
 class LinkList extends Component {
+
+    componentDidMount() {
+        NewVoteSubscription()
+      }
 
     render() {
         return (
